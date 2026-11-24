@@ -1,0 +1,100 @@
+/* board.css : 보드(index.html) 전용 모양입니다.
+   교수 참고 보드: 실습과제 #3의 카드(<article>)와 도구 막대에 맞춘 수수한 모양입니다.
+   색은 common.css의 변수만 씁니다. #1의 카드와 격자 디자인으로 바꿔 쓰세요. */
+
+/* 도구 막대(#3의 .toolbar): 좁은 화면(360px)에서 넘치지 않게 줄을 바꿈(flex-wrap) */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0 0 12px;
+}
+
+.toolbar p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* 카드 격자: 칸 너비 150px 이상, 화면이 넓어지면 열 수가 늘어남(360px에서 가로 스크롤 없음) */
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
+  gap: 12px;
+}
+
+/* 카드 한 장(#3처럼 <article>, 누르면 board.js가 detail.html?id=영화번호로 이동) */
+.card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.card:hover {
+  border-color: var(--accent);
+}
+
+/* 포스터: 2 : 3 비율로 칸을 채움 */
+.poster {
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+/* 대체 표지: 포스터가 없는 카드(.no-poster)의 제목 첫 글자 */
+.card.no-poster .poster-fallback {
+  aspect-ratio: 2 / 3;
+  background: linear-gradient(135deg, var(--accent), var(--badge));
+  color: var(--surface);
+  font-size: 3rem;
+}
+
+/* 평점 배지(포스터 오른쪽 위), 평점 8 이상은 .hot으로 강조 */
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--badge);
+  color: var(--surface);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.card.hot .badge {
+  background: var(--accent);
+}
+
+/* 제목, 개봉 연도, ♥ 버튼 */
+.info {
+  padding: 8px 10px 6px;
+}
+
+.info h3 {
+  margin: 0 0 2px;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.info .year {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* ♥ 찜 버튼: 찜하면 .liked(빨강은 common.css의 --error를 빌려 씀) */
+.like {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 1.4rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.like.liked {
+  color: var(--error);
+}
